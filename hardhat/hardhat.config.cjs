@@ -10,9 +10,9 @@ const {INFURA_API_KEY,PRIVATE_KEY}=process.env;
 module.exports = {
   solidity: "0.8.20",
   defaultNetwork:"zkEVM",
-  paths: {
-    artifacts: "../src",
-  },
+  // paths: {
+  //   artifacts: "../src",
+  // },
   networks:{
     hardhat:{},
     zkEVM:{
