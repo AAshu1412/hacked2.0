@@ -32,7 +32,9 @@ export default function Dashboard() {
 
   return (
     <div className=" flex flex-row justify-between">
-      <div className="ml-36 mt-28 flex flex-col gap-20">
+      <div className="ml-36 mt-8 flex flex-col gap-20">
+        <div className="flex flex-col gap-4">
+            <h1 className="text-3xl font-bold">Redeem Coins</h1>
         <div className="flex flex-col gap-10  p-10 border border-4 border-black rounded-2xl">
           <div>
             <div className="flex flex-row gap-44 items-center">
@@ -93,6 +95,9 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+        </div>
+        <div className="flex flex-col gap-4">
+            <h1 className="text-3xl font-bold">Peer To Peer Transfer</h1>
         <div className="flex flex-col gap-10  p-10 border border-4 border-black rounded-2xl">
           <div className="flex flex-row gap-20 justify-center">
             <input
@@ -122,6 +127,7 @@ export default function Dashboard() {
               Transaction
             </button>
           </div>
+        </div>
         </div>
       </div>
 
