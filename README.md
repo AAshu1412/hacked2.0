@@ -1,22 +1,13 @@
-# Karma Vouch WebAPP
+# ElectroLite
 
-An on-chain vouch based Karma system for DAOs, enabling a trust based approach for figuring out the legitimacy of an Address
+Welcome to the ElectroLite – your gateway to sustainable waste management and renewable energy production! 💡
 
-To install the npm library check [here](npmjs.com/package/karma-vouch)
-
-[![npm version](https://badge.fury.io/js/karma-vouch.svg)](https://badge.fury.io/js/karma-vouch)
-
-Smart Contract, package and website all are in there separate folder [contracts](https://github.com/ankushKun/LFGHO/tree/main/contracts), [package](https://github.com/ankushKun/LFGHO/tree/main/package) and [webapp](https://github.com/ankushKun/LFGHO/tree/main/webapp) respectively
-
-[Live Demo](https://karma-vouch.vercel.app/)
-
-Built during [LFGHO](https://ethglobal.com/events/lfgho/home)
 
 # Index
 
-- [Karma Vouch WebAPP](#karma-vouch-webapp)
+- [ElectroLite](#electrolite)
 - [Index](#index)
-- [About](#about)
+- [Introduction](#introduction)
   - [Techstack](#techstack)
 - [How to setup](#how-to-setup)
   - [Clone the repo](#clone-the-repo)
@@ -27,9 +18,9 @@ Built during [LFGHO](https://ethglobal.com/events/lfgho/home)
 
 
 
-# About
+# Introduction
 
-An on-chain vouch based Karma system for DAOs, enabling a trust based approach for figuring out the legitimacy of an Address
+The Waste-to-Energy Platform is a decentralized solution designed to revolutionize how we manage organic waste and harness renewable energy. By connecting households and businesses with local waste-to-energy conversion facilities, our platform incentivizes eco-friendly waste disposal while promoting the generation of clean energy. 
 
 ## Techstack
 
@@ -37,9 +28,8 @@ An on-chain vouch based Karma system for DAOs, enabling a trust based approach f
     - Tailwind CSS
     - Connect Kit
     - Viem
-    - IGhoToken.sol Smart Contract
     - Solidity
-    - Hardhat
+    - Foundry
 
 # How to setup
 
@@ -48,8 +38,8 @@ An on-chain vouch based Karma system for DAOs, enabling a trust based approach f
 Clone the repo
 
 ```bash
-git clone git@github.com:ankushKun/LFGHO.git
-cd webapp
+git clone git@github.com:AAshu1412/hacked2.0.git
+cd "hacked2.0"
 ```
 ## Install dependencies
 
@@ -61,12 +51,12 @@ npm install
 Create a .env file in webapp folder and add the following variables:
 
 ```bash
-VITE_INFURA_KEY="Your Infura Key"
-VITE_WC_KEY="ProjectId"
+VITE_INFURA_KEY="----------Your Infura Key----------"
+VITE_WALLETCONNECT_PROJECT_ID="ProjectId"
 VITE_CONTRACT="0x000E65B85A0f89f1006bC5202ecBE70D249698Ad"
 ```
 
-To get VITE_WC_KEY click [here](https://cloud.walletconnect.com/sign-in) 
+To get VITE_WALLETCONNECT_PROJECT_ID click [here](https://cloud.walletconnect.com/sign-in) 
  - Click on create project
  - Enter the project name (anything)
  - Click on Type - Wallet
