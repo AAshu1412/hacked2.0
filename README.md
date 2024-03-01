@@ -1,30 +1,87 @@
-# React + TypeScript + Vite
+# Karma Vouch WebAPP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An on-chain vouch based Karma system for DAOs, enabling a trust based approach for figuring out the legitimacy of an Address
 
-Currently, two official plugins are available:
+To install the npm library check [here](npmjs.com/package/karma-vouch)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![npm version](https://badge.fury.io/js/karma-vouch.svg)](https://badge.fury.io/js/karma-vouch)
 
-## Expanding the ESLint configuration
+Smart Contract, package and website all are in there separate folder [contracts](https://github.com/ankushKun/LFGHO/tree/main/contracts), [package](https://github.com/ankushKun/LFGHO/tree/main/package) and [webapp](https://github.com/ankushKun/LFGHO/tree/main/webapp) respectively
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[Live Demo](https://karma-vouch.vercel.app/)
 
-- Configure the top-level `parserOptions` property like this:
+Built during [LFGHO](https://ethglobal.com/events/lfgho/home)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+# Index
+
+- [Karma Vouch WebAPP](#karma-vouch-webapp)
+- [Index](#index)
+- [About](#about)
+  - [Techstack](#techstack)
+- [How to setup](#how-to-setup)
+  - [Clone the repo](#clone-the-repo)
+  - [Install dependencies](#install-dependencies)
+  - [Create a .env file](#create-a-env-file)
+- [Finally run the webapp](#finally-run-the-webapp)
+- [License](#license)
+
+
+
+# About
+
+An on-chain vouch based Karma system for DAOs, enabling a trust based approach for figuring out the legitimacy of an Address
+
+## Techstack
+
+    - Vite + ReactJS with Typescript
+    - Tailwind CSS
+    - Connect Kit
+    - Viem
+    - IGhoToken.sol Smart Contract
+    - Solidity
+    - Hardhat
+
+# How to setup
+
+## Clone the repo
+
+Clone the repo
+
+```bash
+git clone git@github.com:ankushKun/LFGHO.git
+cd webapp
+```
+## Install dependencies
+
+```bash
+npm install
+```
+## Create a .env file
+
+Create a .env file in webapp folder and add the following variables:
+
+```bash
+VITE_INFURA_KEY="Your Infura Key"
+VITE_WC_KEY="ProjectId"
+VITE_CONTRACT="0x000E65B85A0f89f1006bC5202ecBE70D249698Ad"
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To get VITE_WC_KEY click [here](https://cloud.walletconnect.com/sign-in) 
+ - Click on create project
+ - Enter the project name (anything)
+ - Click on Type - Wallet
+ - Copy the Project ID and paste it in a .env file of yours
+
+ # Finally run the webapp
+
+```bash
+npm run dev
+```
+
+The webapp will be running on [localhost](localhost:5173)
+
+To open the same application of another device for testing purposes, make sure that the device is connected to the same network as the device on which the webapp is running. Then visit http://<IP_ADDRESS_OF_THE_DEVICE_RUNNING_THE_WEBAPP>:5173
+
+# License
+
+The projects is licensed under [MIT](https://choosealicense.com/licenses/mit/)

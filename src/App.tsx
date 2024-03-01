@@ -1,13 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
+// import Title from "./components/Title";
 
-function App() {
+export default function App() {
 
   return (
-    <>
-      <h1 >dwad</h1>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
 
-export default App
+      </Routes>
+    </BrowserRouter>
+  );
+}
