@@ -9,8 +9,7 @@ export default function Dashboard() {
   const [water1, setWater] = useState(0);
   const [send_func, setSend_func] = useState({
     address: "0x295FaF0D270De6d5e9ACDFe287B6844D2335590B",
-    coin: 100,
-    waste: 100,
+    coin: 100
   });
 
   const handleInput = (event) => {
@@ -20,9 +19,6 @@ export default function Dashboard() {
     console.log(name, value);
     if (name == "elec") setElectricity(value);
     if (name == "wat") setWater(value);
-    // if (name=="user_address") setSend_func({ ...send_func, [name]: value })
-    // if (name=="user_coin") setSend_func({ ...send_func, [name]: value })
-    // if (name=="user_waste") setSend_func({ ...send_func, [name]: value })
   };
 
   const handleInput2 = (event) => {
@@ -98,7 +94,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex flex-col gap-10  p-10 border border-4 border-black rounded-2xl">
-          <div className="flex flex-row gap-9">
+          <div className="flex flex-row gap-20 justify-center">
             <input
               placeholder="Address"
               type="text"
@@ -107,7 +103,7 @@ export default function Dashboard() {
               onChange={handleInput2}
               name="address"
               id="address"
-              className="h-10 rounded-md border-2 border-black "
+              className="w-[400px] h-10 rounded-md border-2 border-black "
             ></input>
             <input
               placeholder="Coin"
@@ -119,16 +115,7 @@ export default function Dashboard() {
               id="coin"
               className="h-10 rounded-md border-2 border-black "
             ></input>
-            <input
-              placeholder="Waste"
-              type="number"
-              autoComplete="off"
-              value={send_func.waste}
-              onChange={handleInput2}
-              name="waste"
-              id="waste"
-              className="h-10 rounded-md border-2 border-black "
-            ></input>
+          
           </div>
           <div className="flex flex-row justify-center">
             <button className="border-2 border-black px-8 py-3 rounded-md font-bold text-lg">

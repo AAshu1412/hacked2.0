@@ -7,7 +7,7 @@ export default function Home() {
     const { address } = useAccount();
 
   return (
-    <div className="bg-blue-200 flex flex-row justify-center mt-20 items-center ">
+    <div className=" flex flex-row justify-center mt-20 items-center ">
         <div className="flex flex-col gap-12">
             <div className="flex flex-col gap-9">
             <h1 className="w-[750px] text-5xl font-bold">Make a difference every day by recycling waste and powering your community.</h1>    

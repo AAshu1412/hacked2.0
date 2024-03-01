@@ -22,7 +22,7 @@ export default function Navbar() {
           <NavLink to="/dashboard">DashBoard</NavLink>
         </li>
         <li>
-        <NavLink to="/announcement">Announcement</NavLink>
+        <NavLink to="/admin">Admin</NavLink>
 
         </li>
         <li>
