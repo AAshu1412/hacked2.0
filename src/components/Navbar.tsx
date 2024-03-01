@@ -7,13 +7,13 @@ export default function Navbar() {
 
   return (
     <nav className="grid grid-cols-[5rem_0.8fr_2fr_1fr_10rem] text-xl	my-10">
-    <div className="bg-orange-300 col-start-2 col-span-1" >
+    <div className="col-start-2 col-span-1" >
       <NavLink to="/" className="flex flex-row  items-center gap-5 text-4xl font-bold	"> 
         <img src={icon} className="w-20"></img>
         <h1>ElectroLite</h1>
       </NavLink>
     </div>
-    <div className="bg-pink-300 col-start-3 col-span-1 flex flex-col justify-center">
+    <div className=" col-start-3 col-span-1 flex flex-col justify-center">
       <ul className="flex flex-row gap-10">
         <li>
           <NavLink to="/">Home</NavLink>
@@ -30,7 +30,7 @@ export default function Navbar() {
         </li>
       </ul>
     </div>
-    <div className="bg-green-300 col-start-4 col-span-1 flex flex-col justify-center items-center pl-40">
+    <div className=" col-start-4 col-span-1 flex flex-col justify-center items-center pl-40">
      <ConnectKitButton/>
     </div>
   </nav>
