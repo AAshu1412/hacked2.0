@@ -2,11 +2,13 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
-contract electro is ERC20, ERC20Burnable, ERC20Permit {
+
+contract electro is ERC20, ERC20Permit {
     address private owner;
+    
 
     struct people {
         address people_address;
@@ -15,6 +17,8 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
         uint256 amount;
         uint256 total_amount;
         uint256 amount_deducted;
+        uint256 elec_bill;
+        uint256 water_bill;
     }
 
     struct Data {
@@ -31,7 +35,7 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
     mapping(address => string) private map_type;
 
 
-    constructor() ERC20("ElectroLite", "ETL") ERC20Permit("MyToken") {
+    constructor() ERC20("ElectroCoin", "ETC") ERC20Permit("MyToken") {
         _mint(msg.sender, 1000);
         owner = msg.sender;
         map_type[msg.sender]="Government";
@@ -53,6 +57,8 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
         People[to].id = People[to].id + 1;
         People[to].amount = value;
         People[to].total_amount = People[to].total_amount + People[to].amount;
+        People[to].elec_bill=100;
+        People[to].water_bill=100;
         map_type[to]="User";
         Data memory data1 = Data(msg.sender, to, value);
         map_uint[to].push(People[to].id);
@@ -62,7 +68,7 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
         transfer(to, value);
     }
 
-    function people_spend(address to, uint256 value) public {
+    function people_spend(address to, uint256 value,string memory bill) public {
         require(balanceOf(msg.sender) > 0, "Not enough Funds");
         People[msg.sender].amount_deducted =
             People[msg.sender].amount_deducted +
@@ -73,6 +79,15 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
         map_uint[to].push(People[to].id);
         // map_address[People[to].id]=msg.sender;
         map_data[People[to].id] = data1;
+        if (keccak256(bytes(bill)) == keccak256(bytes("electricity"))){
+            require(People[msg.sender].elec_bill>=value,"Bill is paid");
+         People[msg.sender].elec_bill= People[msg.sender].elec_bill-value;
+        }
+        if (keccak256(bytes(bill)) == keccak256(bytes("water"))){
+                        require(People[msg.sender].water_bill>=value,"Bill is paid");
+
+         People[msg.sender].water_bill= People[msg.sender].water_bill-value;
+        }
         transfer(to, value);
     }
 
@@ -88,9 +103,7 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
         return People[_address].waste;
     }
 
-     function types(address _address) public view returns (string memory) {
-        return map_type[_address];
-    }
+     
    
     function fetching_log_int(address _address) public view returns (uint256[] memory) {
         return map_uint[_address];
@@ -102,4 +115,20 @@ contract electro is ERC20, ERC20Burnable, ERC20Permit {
 
         return map_data[_id];
     }
+
+
+
+    function types(address _address) public view returns (string memory) {
+        return map_type[_address];
+    }
+
+    function getElecBill(address _address) public view returns(uint){
+        return  People[_address].elec_bill;
+    }
+
+    function getWaterBill(address _address) public view returns(uint){
+        return  People[_address].water_bill;
+    }
+
+   
 }

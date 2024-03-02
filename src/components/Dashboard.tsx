@@ -1,15 +1,23 @@
 import React from "react";
-import { useState } from "react";
 import water from "../assets/icons8-water-64.svg";
 import electricity from "../assets/icons8-electricity-50.svg";
-import { string } from "prop-types";
+import { useState, useEffect } from "react";
+import { useAccount } from "wagmi";
+import { createWalletClient, custom, createPublicClient, http } from "viem";
+import { polygonZkEvmTestnet } from "wagmi/chains";
+import electro from "../smartContractAddress.json";
+import elctroabi from "../../hardhat/artifacts/contracts/electro.sol/electro.json";
+
 
 export default function Dashboard() {
+
+  const { address } = useAccount();
+
   const [electricity1, setElectricity] = useState(0);
   const [water1, setWater] = useState(0);
   const [send_func, setSend_func] = useState({
-    address: "0x295FaF0D270De6d5e9ACDFe287B6844D2335590B",
-    coin: 100
+    address: "",
+    coin: 0
   });
 
   const handleInput = (event) => {
@@ -30,6 +38,186 @@ export default function Dashboard() {
     setSend_func({ ...send_func, [name]: value });
   };
 
+//////////////////////////////////////////////////////////////////////////////
+
+const publicClient = createPublicClient({
+  chain: polygonZkEvmTestnet,
+  transport: http(),
+});
+
+const walletClient = createWalletClient({
+  chain: polygonZkEvmTestnet,
+  transport: custom((window as any).ethereum),
+});
+
+///////////////////////////////////////////////////////////////////////////////
+
+const [people_total_amount,setPeople_total_amount]=useState(0);
+const [people_deducted_amount,setPeople_deducted_amount]=useState(0);
+const [people_waste,setPeople_waste]=useState(0);
+
+const [people_elec_bill,setPeople_elec_bill]=useState(0);
+const [people_water_bill,setPeople_water_bill]=useState(0);
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+ 
+
+useEffect(() => {
+  (async () => {
+    const data = await publicClient.readContract({
+      address: electro.smartContractAddress as `0x${string}`,
+      abi: elctroabi.abi,
+      functionName: "people_total_amount",
+      args: [address],
+      account: address as `0x${string}`,
+    });
+    const dataaa=JSON.parse(
+      JSON.stringify(data, (key, value) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      })
+    );
+    setPeople_total_amount(dataaa);
+  })();
+}, [address]);
+
+
+useEffect(() => {
+  (async () => {
+    const data = await publicClient.readContract({
+      address: electro.smartContractAddress as `0x${string}`,
+      abi: elctroabi.abi,
+      functionName: "people_deducted_amount",
+      args: [address],
+      account: address as `0x${string}`,
+    });
+    const dataaa=JSON.parse(
+      JSON.stringify(data, (key, value) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      })
+    );
+    setPeople_deducted_amount(dataaa);
+  })();
+}, [address]);
+
+
+useEffect(() => {
+  (async () => {
+    const data = await publicClient.readContract({
+      address: electro.smartContractAddress as `0x${string}`,
+      abi: elctroabi.abi,
+      functionName: "people_waste",
+      args: [address],
+      account: address as `0x${string}`,
+    });
+    const dataaa=JSON.parse(
+      JSON.stringify(data, (key, value) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      })
+    );
+    setPeople_waste(dataaa);
+  })();
+}, [address]);
+
+
+useEffect(() => {
+  (async () => {
+    const data = await publicClient.readContract({
+      address: electro.smartContractAddress as `0x${string}`,
+      abi: elctroabi.abi,
+      functionName: "getElecBill",
+      args: [address],
+      account: address as `0x${string}`,
+    });
+    const dataaa=JSON.parse(
+      JSON.stringify(data, (key, value) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      })
+    );
+    setPeople_elec_bill(dataaa);
+  })();
+}, [address]);
+
+
+useEffect(() => {
+  (async () => {
+    const data = await publicClient.readContract({
+      address: electro.smartContractAddress as `0x${string}`,
+      abi: elctroabi.abi,
+      functionName: "getWaterBill",
+      args: [address],
+      account: address as `0x${string}`,
+    });
+    const dataaa=JSON.parse(
+      JSON.stringify(data, (key, value) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      })
+    );
+    setPeople_water_bill(dataaa);
+  })();
+}, [address]);
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+async function people_spend1(): Promise<any> {
+  await walletClient.writeContract({
+    address: electro.smartContractAddress as `0x${string}`,
+    abi: elctroabi.abi,
+    functionName: "people_spend",
+    args: ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", electricity1,"electricity"],
+    account: address as `0x${string}`,
+    chain: polygonZkEvmTestnet,
+  });
+}
+
+
+
+async function people_spend2(): Promise<any> {
+  await walletClient.writeContract({
+    address: electro.smartContractAddress as `0x${string}`,
+    abi: elctroabi.abi,
+    functionName: "people_spend",
+    args: ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", water1,"water"],
+    account: address as `0x${string}`,
+    chain: polygonZkEvmTestnet,
+  });
+}
+
+
+
+
+async function transfer(): Promise<any> {
+  await walletClient.writeContract({
+    address: electro.smartContractAddress as `0x${string}`,
+    abi: elctroabi.abi,
+    functionName: "transfer",
+    args: [send_func.address, send_func.coin],
+    account: address as `0x${string}`,
+    chain: polygonZkEvmTestnet,
+  });
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+// useEffect(() => {
+//   (async () => {
+// const unwatch = publicClient.watchContractEvent({
+//   address: electro.smartContractAddress as `0x${string}`,
+//   abi: elctroabi.abi,
+//   eventName: 'Transfer',
+//   onLogs: logs => console.log(logs)
+// });
+// console.log(unwatch)
+
+// })();
+// });
+
+////////////////////////////////////////////////////////////////
+
+
   return (
     <div className=" flex flex-row justify-between">
       <div className="ml-36 mt-8 flex flex-col gap-20">
@@ -45,7 +233,8 @@ export default function Dashboard() {
                 ></img>
                 <div>
                   <h1 className="text-2xl">Electricity Bill</h1>
-                  <h1 className="text-xl">100</h1>
+                  <h1 className="text-xl">{people_elec_bill}</h1>
+                  <h1 className="w-72 break-all">0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266</h1>
                 </div>
               </div>
               <div className="flex flex-row gap-10">
@@ -59,7 +248,7 @@ export default function Dashboard() {
                   id="elec"
                   className="h-10 rounded-md border-2 border-black "
                 ></input>
-                <button className="border-2 border-black px-8 rounded-md">
+                <button className="border-2 border-black px-8 rounded-md" onClick={people_spend1}>
                   Send
                 </button>
               </div>
@@ -74,7 +263,8 @@ export default function Dashboard() {
                 ></img>
                 <div>
                   <h1 className="text-2xl">Water Bill</h1>
-                  <h1 className="text-xl">100</h1>
+                  <h1 className="text-xl">{people_water_bill}</h1>
+                  <h1 className="w-72 break-all">0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266</h1>
                 </div>
               </div>
               <div className="flex flex-row gap-10">
@@ -88,7 +278,7 @@ export default function Dashboard() {
                   id="wat"
                   className="h-10 rounded-md border-2 border-black "
                 ></input>
-                <button className="border-2 border-black px-8 rounded-md">
+                <button className="border-2 border-black px-8 rounded-md" onClick={people_spend2}>
                   Send
                 </button>
               </div>
@@ -123,7 +313,7 @@ export default function Dashboard() {
           
           </div>
           <div className="flex flex-row justify-center">
-            <button className="border-2 border-black px-8 py-3 rounded-md font-bold text-lg">
+            <button className="border-2 border-black px-8 py-3 rounded-md font-bold text-lg" onClick={transfer}>
               Transaction
             </button>
           </div>
@@ -135,19 +325,19 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 gap-8">
           <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mt-28 ml-10 grid gap-6  rounded-2xl	 ">
             <h1 className="text-3xl font-semibold	">Total ElectroLite</h1>
-            <h1 className="text-5xl">100</h1>
+            <h1 className="text-5xl">{people_total_amount}</h1>
           </div>
           <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mt-28  grid gap-6 mr-10 rounded-2xl	">
             <h1 className="text-3xl font-semibold	"> Total Waste</h1>
-            <h1 className="text-5xl">100</h1>
+            <h1 className="text-5xl">{people_waste}</h1>
           </div>
           <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mb-28 ml-10  grid gap-6 rounded-2xl	">
             <h1 className="text-3xl font-semibold	"> Monthly Energy</h1>
-            <h1 className="text-5xl">100</h1>
+            <h1 className="text-5xl">{people_elec_bill}</h1>
           </div>
           <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mb-28 mr-10  grid gap-6 rounded-2xl	">
             <h1 className="text-3xl font-semibold	"> Total Redeem Coin</h1>
-            <h1 className="text-5xl">100</h1>
+            <h1 className="text-5xl">{people_deducted_amount}</h1>
           </div>
         </div>
       </div>
