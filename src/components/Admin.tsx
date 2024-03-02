@@ -138,7 +138,7 @@ export default function Admin() {
                 Calculate
               </button>
               <p className="text-xl text-black font-semibold">
-                Total Price: ₹{value}
+                Total Price: {value} ElectroLite
               </p>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function Admin() {
                 Calculate
               </button>
               <p className="text-xl text-black font-semibold">
-                Total Price: ₹{value2}
+                Total Price: {value2} electroLite
               </p>
             </div>
           </div>

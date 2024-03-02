@@ -32,6 +32,7 @@ The Waste-to-Energy Platform is a decentralized solution designed to revolutioni
     - Viem
     - Solidity
     - Hardhat
+    - Gemini
 
 # How to setup
 

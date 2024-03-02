@@ -27,6 +27,7 @@ export default function Dashboard() {
 
   async function fetchDataFromGemini() {
     try {
+      setFetch_gemini_data("");
       const prompt = gemini_data;
       const result = await model.generateContent(prompt);
       const response = await result.response;
