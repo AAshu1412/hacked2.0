@@ -12,7 +12,9 @@ Welcome to the ElectroLite – your gateway to sustainable waste management and 
 - [How to setup](#how-to-setup)
   - [Clone the repo](#clone-the-repo)
   - [Install dependencies](#install-dependencies)
-  - [Create a .env file](#create-a-env-file)
+  - [Create a .env file in "hacked2.0" folder](#create-a-env-file-in-hacked20-folder)
+  - [Again Create a .env file in hardhat folder](#again-create-a-env-file-in-hardhat-folder)
+  - [Deploying the smart contract (Optional)](#deploying-the-smart-contract-optional)
 - [Finally run the webapp](#finally-run-the-webapp)
 - [License](#license)
 
@@ -23,13 +25,13 @@ Welcome to the ElectroLite – your gateway to sustainable waste management and 
 The Waste-to-Energy Platform is a decentralized solution designed to revolutionize how we manage organic waste and harness renewable energy. By connecting households and businesses with local waste-to-energy conversion facilities, our platform incentivizes eco-friendly waste disposal while promoting the generation of clean energy. 
 
 ## Techstack
-
+ 
     - Vite + ReactJS with Typescript
     - Tailwind CSS
     - Connect Kit
     - Viem
     - Solidity
-    - Foundry
+    - Hardhat
 
 # How to setup
 
@@ -46,14 +48,18 @@ cd "hacked2.0"
 ```bash
 npm install
 ```
-## Create a .env file
+## Create a .env file in "hacked2.0" folder
 
-Create a .env file in webapp folder and add the following variables:
+Create a .env file in "hacked2.0" folder  
+```bash
+touch .env
+```
+
+Add the following variables:
 
 ```bash
 VITE_INFURA_KEY="----------Your Infura Key----------"
 VITE_WALLETCONNECT_PROJECT_ID="ProjectId"
-VITE_CONTRACT="0x000E65B85A0f89f1006bC5202ecBE70D249698Ad"
 ```
 
 To get VITE_WALLETCONNECT_PROJECT_ID click [here](https://cloud.walletconnect.com/sign-in) 
@@ -62,7 +68,38 @@ To get VITE_WALLETCONNECT_PROJECT_ID click [here](https://cloud.walletconnect.co
  - Click on Type - Wallet
  - Copy the Project ID and paste it in a .env file of yours
 
- # Finally run the webapp
+
+If you don't have INFURA API KEY then [click here](https://app.infura.io/) and copy your api key
+
+
+
+## Again Create a .env file in hardhat folder
+ - Create the .env file in hardhat folder
+```bash
+cd hardhat
+touch .env
+```
+copy this code and paste it in your .env file
+``` bash
+PRIVATE_KEY="------Enter Your Private Key of metamask wallet--------"
+```
+
+
+## Deploying the smart contract (Optional)
+
+ - Install this dependecy
+  ```bash
+  cd ..
+  npm install @nomicfoundation/hardhat-toolbox
+  ```
+
+  - Run this command to deploy the smart contract
+  ``` bash
+  cd hardhat
+  npx hardhat run scripts/deploy.js --network zkEVM
+```
+
+ # Finally run the webapp 
 
 ```bash
 npm run dev

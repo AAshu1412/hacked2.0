@@ -202,18 +202,15 @@ async function transfer(): Promise<any> {
 
 
 /////////////////////////////////////////////////////////////////////////////
-// useEffect(() => {
-//   (async () => {
-// const unwatch = publicClient.watchContractEvent({
-//   address: electro.smartContractAddress as `0x${string}`,
-//   abi: elctroabi.abi,
-//   eventName: 'Transfer',
-//   onLogs: logs => console.log(logs)
-// });
-// console.log(unwatch)
 
-// })();
-// });
+const unwatch = publicClient.watchContractEvent({
+  address: electro.smartContractAddress as `0x${string}`,
+  abi: elctroabi.abi,
+  eventName: 'Transfer',
+  onLogs: logs => console.log(logs)
+});
+console.log(unwatch)
+
 
 ////////////////////////////////////////////////////////////////
 
