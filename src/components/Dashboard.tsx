@@ -7,10 +7,45 @@ import { createWalletClient, custom, createPublicClient, http } from "viem";
 import { polygonZkEvmTestnet } from "wagmi/chains";
 import electro from "../smartContractAddress.json";
 import elctroabi from "../../hardhat/artifacts/contracts/electro.sol/electro.json";
+import {GoogleGenerativeAI} from "@google/generative-ai";
+
+
+const genAI=new GoogleGenerativeAI("AIzaSyBvSswhwR0HD6LfgHLsjGHxtjw7Rgq5wro"); 
+const model=genAI.getGenerativeModel({model: "gemini-pro"});
 
 
 export default function Dashboard() {
 
+   const [gemini_data,setGemini_data]=useState(undefined);
+   const [loading,setLoading]=useState(false);
+   const [fetch_gemini_data,setFetch_gemini_data]=useState("");
+
+   const handleInput3 = (event) => {
+    const name = event.target.name;
+    // console.log(event.target.value);
+    const value = event.target.value;
+    console.log(name, value);
+    if (name == "gem") setGemini_data(value);
+  };
+
+    
+   async function fetchDataFromGemini(){
+    try{
+const prompt=gemini_data;
+const result=await model.generateContent(prompt);
+const response=await result.response;
+const text=response.text();
+console.log(text);
+setLoading(true);
+setFetch_gemini_data(text);
+    }
+    catch(e){
+      setLoading(false);
+      console.log(e);
+    }
+   }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
   const { address } = useAccount();
 
   const [electricity1, setElectricity] = useState(0);
@@ -193,7 +228,7 @@ async function transfer(): Promise<any> {
   await walletClient.writeContract({
     address: electro.smartContractAddress as `0x${string}`,
     abi: elctroabi.abi,
-    functionName: "transfer",
+    functionName: "peer",
     args: [send_func.address, send_func.coin],
     account: address as `0x${string}`,
     chain: polygonZkEvmTestnet,
@@ -203,19 +238,80 @@ async function transfer(): Promise<any> {
 
 /////////////////////////////////////////////////////////////////////////////
 
-const unwatch = publicClient.watchContractEvent({
-  address: electro.smartContractAddress as `0x${string}`,
-  abi: elctroabi.abi,
-  eventName: 'Transfer',
-  onLogs: logs => console.log(logs)
-});
-console.log(unwatch)
+// const unwatch = publicClient.watchContractEvent({
+//   address: electro.smartContractAddress as `0x${string}`,
+//   abi: elctroabi.abi,
+//   eventName: 'Transfer',
+//   onLogs: logs => console.log(logs)
+// });
+// console.log(unwatch)
+
+// const [array,setArray]=useState([]);
+// const [array2,setArray2]=useState([]);
+
+
+// useEffect(() => {
+//   (async () => {
+//     const data = await publicClient.readContract({
+//       address: electro.smartContractAddress as `0x${string}`,
+//       abi: elctroabi.abi,
+//       functionName: "fetching_log_int",
+//       args: [address],
+//       account: address as `0x${string}`,
+//     });
+//     const dataaa=JSON.parse(
+//       JSON.stringify(data, (key, value) => {
+//         return typeof value === "bigint" ? value.toString() : value;
+//       })
+//     );
+
+   
+//     setArray(Object.values(data));
+//     console.log("data == "+data);
+//     console.log("data == "+dataaa.length);
+//     console.log("daaaaaaaaaata == "+array);
+
+//   })();
+// },[address]);
+
+// useEffect(() => {
+//   const getArrayData= async (val) => {
+//     const data = await publicClient.readContract({
+//       address: electro.smartContractAddress as `0x${string}`,
+//       abi: elctroabi.abi,
+//       functionName: "fetching_log_data",
+//       args: [val],
+//       account: address as `0x${string}`,
+//     });
+//     const dataaa=JSON.parse(
+//       JSON.stringify(data, (key, value) => {
+//         return typeof value === "bigint" ? value.toString() : value;
+//       })
+//     );
+//     let bu=JSON.parse(
+//       JSON.stringify(array2, (key, value) => {
+//         return typeof value === "bigint" ? value.toString() : value;
+//       })
+//     );
+//     let io=Object.values(data);
+//     setArray2([...array2,[data]]);
+//     console.log("fetch data is ===== "+dataaa);
+//     console.log("dadwdaw === "+array2);
+//   };
+//    getArrayData(array[0]);
+// },[]);
+
 
 
 ////////////////////////////////////////////////////////////////
 
 
+
+//////////////////////////////////////////////////////////////
+
+
   return (
+    <div className="flex flex-col gap-20">
     <div className=" flex flex-row justify-between">
       <div className="ml-36 mt-8 flex flex-col gap-20">
         <div className="flex flex-col gap-4">
@@ -316,6 +412,8 @@ console.log(unwatch)
           </div>
         </div>
         </div>
+
+      
       </div>
 
       <div className="bg-black border-0 rounded-3xl h-[76vh] mr-7">
@@ -338,6 +436,34 @@ console.log(unwatch)
           </div>
         </div>
       </div>
+    </div>
+    <div className="flex flex-col gap-4 mx-36">
+          <h1 className="text-3xl font-bold">Chat Bot</h1>
+        <div className="flex flex-col gap-10  p-10 border border-4 border-black rounded-2xl">
+         <div className="flex flex-row gap-10">
+         <input
+              placeholder="Text"
+              type="text"
+              autoComplete="off"
+              value={gemini_data}
+              onChange={handleInput3}
+              name="gem"
+              id="gem"
+              className="w-[1500px] h-10 rounded-md border-2 border-black "
+            ></input>
+          
+         
+         
+            <button className="border-2 border-black px-8 py- rounded-md font-bold text-lg" onClick={fetchDataFromGemini}>
+              Generate
+            </button>
+         </div>
+           <div className="w-[1270px]  break-all">
+          <h1 className=" text-lg font-medium "> Response :</h1>  <br/>{fetch_gemini_data}
+           </div>
+        
+        </div>
+        </div>  
     </div>
   );
 }

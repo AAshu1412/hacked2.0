@@ -130,5 +130,12 @@ contract electro is ERC20, ERC20Permit {
         return  People[_address].water_bill;
     }
 
+    function peer(address _address,uint256 val) public{
+        People[msg.sender].amount_deducted =
+            People[msg.sender].amount_deducted +
+            val;
+            transfer(_address, val);
+    }
+
    
 }

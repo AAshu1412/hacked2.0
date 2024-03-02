@@ -58,10 +58,10 @@ export default function Home() {
           </h1>
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-lg">{address ?? "Loading address"}</h1>
-          <h1 className="text-lg">Balance : {balance}</h1>
+          <h1 className="text-2xl font-medium">{address ?? "Loading address"}</h1>
+          <h1 className="text-2xl font-medium">Balance : {balance}</h1>
 
-          <h1 className="text-lg">Type : {type}</h1>
+          <h1 className="text-2xl font-medium">Type : {type}</h1>
         </div>
       </div>
       <div>
