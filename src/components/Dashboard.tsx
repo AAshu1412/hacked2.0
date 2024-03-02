@@ -404,21 +404,21 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-black border-0 rounded-3xl h-[76vh] mr-7">
+        <div className="bg-slate-600 border-0 rounded-3xl h-[76vh] mr-7">
           <div className="grid grid-cols-2 gap-8">
-            <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mt-28 ml-10 grid gap-6  rounded-2xl	 ">
+            <div className="border-2 bg-white border-black shadow-md shadow-black py-16 px-2 mt-28 ml-10 grid gap-6  rounded-2xl	 ">
               <h1 className="text-3xl font-semibold	">Total ElectroLite</h1>
               <h1 className="text-5xl">{people_total_amount}</h1>
             </div>
-            <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mt-28  grid gap-6 mr-10 rounded-2xl	">
+            <div className="border-2 bg-white border-black shadow-md shadow-black py-16 px-2 mt-28  grid gap-6 mr-10 rounded-2xl	">
               <h1 className="text-3xl font-semibold	"> Total Waste</h1>
               <h1 className="text-5xl">{people_waste}</h1>
             </div>
-            <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mb-28 ml-10  grid gap-6 rounded-2xl	">
+            <div className="border-2 bg-white border-black shadow-md shadow-black py-16 px-2 mb-28 ml-10  grid gap-6 rounded-2xl	">
               <h1 className="text-3xl font-semibold	"> Monthly Energy</h1>
               <h1 className="text-5xl">{people_elec_bill}</h1>
             </div>
-            <div className="border-2 bg-white border-black shadow-md shadow-slate-100 py-16 px-2 mb-28 mr-10  grid gap-6 rounded-2xl	">
+            <div className="border-2 bg-white border-black shadow-md shadow-black py-16 px-2 mb-28 mr-10  grid gap-6 rounded-2xl	">
               <h1 className="text-3xl font-semibold	"> Total Redeem Coin</h1>
               <h1 className="text-5xl">{people_deducted_amount}</h1>
             </div>
