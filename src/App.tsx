@@ -7,16 +7,14 @@ import Admin from "./components/Admin";
 import About from "./components/About";
 
 export default function App() {
-
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/admin" element={<Admin/>} />
-        <Route path="/about" element={<About/>} />
-
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   );
