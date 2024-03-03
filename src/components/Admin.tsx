@@ -4,6 +4,7 @@ import { createWalletClient, custom, createPublicClient, http } from "viem";
 import { polygonZkEvmTestnet } from "wagmi/chains";
 import electro from "../smartContractAddress.json";
 import elctroabi from "../../hardhat/artifacts/contracts/electro.sol/electro.json";
+import Ripples from "react-ripples";
 
 export default function Admin() {
   const { address } = useAccount();
@@ -131,12 +132,19 @@ export default function Admin() {
               </div>
             </form>
             <div className="flex flex-row gap-4">
-              <button
-                onClick={calculatePrice}
-                className="border-2 border-black px-8 rounded-md"
+              <Ripples
+                color="black"
+                during={1200}
+                placeholder={"Random Anything"}
               >
-                Calculate
-              </button>
+                <button
+                  onClick={calculatePrice}
+                  className="border-2 border-black px-8 rounded-md"
+                >
+                  Calculate
+                </button>
+              </Ripples>
+
               <p className="text-xl text-black font-semibold">
                 Total Price: {value} ElectroLite
               </p>
@@ -195,12 +203,18 @@ export default function Admin() {
               </div>
             </form>
             <div className="flex flex-row gap-4">
-              <button
-                onClick={calculatemorePrice}
-                className="border-2 border-black px-8 rounded-md"
+              <Ripples
+                color="black"
+                during={1200}
+                placeholder={"Random Anything"}
               >
-                Calculate
-              </button>
+                <button
+                  onClick={calculatemorePrice}
+                  className="border-2 border-black px-8 rounded-md"
+                >
+                  Calculate
+                </button>
+              </Ripples>
               <p className="text-xl text-black font-semibold">
                 Total Price: {value2} electroLite
               </p>
@@ -237,14 +251,16 @@ export default function Admin() {
             ></input>
           </div>
         </div>
-        <button
-          className="w-36 border-2 border-black px-8 py-3 rounded-md font-bold text-lg"
-          onClick={
-            value == 0 ? () => sendReward(value2) : () => sendReward(value)
-          }
-        >
-          Send
-        </button>
+        <Ripples color="black" during={1200} placeholder={"Random Anything"}>
+          <button
+            className="w-36 border-2 border-black px-8 py-3 rounded-md font-bold text-lg"
+            onClick={
+              value == 0 ? () => sendReward(value2) : () => sendReward(value)
+            }
+          >
+            Send
+          </button>
+        </Ripples>
       </div>
     </div>
   );

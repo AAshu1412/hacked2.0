@@ -8,6 +8,7 @@ import { polygonZkEvmTestnet } from "wagmi/chains";
 import electro from "../smartContractAddress.json";
 import elctroabi from "../../hardhat/artifacts/contracts/electro.sol/electro.json";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import Ripples from "react-ripples";
 
 const genAI = new GoogleGenerativeAI("AIzaSyBvSswhwR0HD6LfgHLsjGHxtjw7Rgq5wro");
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -321,12 +322,18 @@ export default function Dashboard() {
                       id="elec"
                       className="h-10 rounded-md border-2 border-black "
                     ></input>
-                    <button
-                      className="border-2 border-black px-8 rounded-md"
-                      onClick={people_spend1}
+                    <Ripples
+                      color="black"
+                      during={1200}
+                      placeholder={"Random Anything"}
                     >
-                      Send
-                    </button>
+                      <button
+                        className="border-2 border-black px-8 rounded-md"
+                        onClick={people_spend1}
+                      >
+                        Send
+                      </button>
+                    </Ripples>
                   </div>
                 </div>
               </div>
@@ -356,12 +363,18 @@ export default function Dashboard() {
                       id="wat"
                       className="h-10 rounded-md border-2 border-black "
                     ></input>
-                    <button
-                      className="border-2 border-black px-8 rounded-md"
-                      onClick={people_spend2}
+                    <Ripples
+                      color="black"
+                      during={1200}
+                      placeholder={"Random Anything"}
                     >
-                      Send
-                    </button>
+                      <button
+                        className="border-2 border-black px-8 rounded-md"
+                        onClick={people_spend2}
+                      >
+                        Send
+                      </button>
+                    </Ripples>
                   </div>
                 </div>
               </div>
@@ -393,12 +406,18 @@ export default function Dashboard() {
                 ></input>
               </div>
               <div className="flex flex-row justify-center">
-                <button
-                  className="border-2 border-black px-8 py-3 rounded-md font-bold text-lg"
-                  onClick={transfer}
+                <Ripples
+                  color="black"
+                  during={1200}
+                  placeholder={"Random Anything"}
                 >
-                  Transaction
-                </button>
+                  <button
+                    className="border-2 border-black px-8 py-3 rounded-md font-bold text-lg"
+                    onClick={transfer}
+                  >
+                    Transaction
+                  </button>
+                </Ripples>
               </div>
             </div>
           </div>
@@ -437,15 +456,20 @@ export default function Dashboard() {
               onChange={handleInput3}
               name="gem"
               id="gem"
-              className="w-[1500px] h-10 rounded-md border-2 border-black "
+              className="w-[1250px] h-10 rounded-md border-2 border-black "
             ></input>
-
-            <button
-              className="border-2 border-black px-8 py- rounded-md font-bold text-lg"
-              onClick={fetchDataFromGemini}
+            <Ripples
+              color="black"
+              during={1200}
+              placeholder={"Random Anything"}
             >
-              Generate
-            </button>
+              <button
+                className="border-2 border-black px-8 py- rounded-md font-bold text-lg"
+                onClick={fetchDataFromGemini}
+              >
+                Generate
+              </button>
+            </Ripples>
           </div>
           <div className="w-[1270px]  break-all">
             <h1 className=" text-lg font-medium "> Response :</h1> <br />
