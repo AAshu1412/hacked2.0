@@ -87,6 +87,7 @@ export default function Dashboard() {
   const [people_total_amount, setPeople_total_amount] = useState(0);
   const [people_deducted_amount, setPeople_deducted_amount] = useState(0);
   const [people_waste, setPeople_waste] = useState(0);
+  const [current_balance, setCurrent_balance] = useState(0);
 
   const [people_elec_bill, setPeople_elec_bill] = useState(0);
   const [people_water_bill, setPeople_water_bill] = useState(0);
@@ -180,6 +181,19 @@ export default function Dashboard() {
         })
       );
       setPeople_water_bill(dataaa);
+    })();
+  }, [address]);
+
+  useEffect(() => {
+    (async () => {
+      const data = await publicClient.readContract({
+        address: electro.smartContractAddress as `0x${string}`,
+        abi: elctroabi.abi,
+        functionName: "balanceOf",
+        args: [address],
+        account: address as `0x${string}`,
+      });
+      setCurrent_balance(Number(data));
     })();
   }, [address]);
 
@@ -434,8 +448,8 @@ export default function Dashboard() {
               <h1 className="text-5xl">{people_waste}</h1>
             </div>
             <div className="border-2 bg-white border-black shadow-md shadow-black py-16 px-2 mb-28 ml-10  grid gap-6 rounded-2xl	">
-              <h1 className="text-3xl font-semibold	"> Monthly Energy</h1>
-              <h1 className="text-5xl">{people_elec_bill}</h1>
+              <h1 className="text-3xl font-semibold	"> Current Balance</h1>
+              <h1 className="text-5xl">{current_balance}</h1>
             </div>
             <div className="border-2 bg-white border-black shadow-md shadow-black py-16 px-2 mb-28 mr-10  grid gap-6 rounded-2xl	">
               <h1 className="text-3xl font-semibold	"> Total Redeem Coin</h1>
@@ -444,7 +458,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 mx-36">
+      <div className="flex flex-col gap-4 mx-36 mb-10">
         <h1 className="text-3xl font-bold">Chat Bot</h1>
         <div className="flex flex-col gap-10  p-10 border border-4 border-black rounded-2xl">
           <div className="flex flex-row gap-10">
